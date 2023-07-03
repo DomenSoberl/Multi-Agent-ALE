@@ -72,7 +72,7 @@ VideoCubeSettings::VideoCubeSettings() { reset(); }
  * *****************************************************************************
  */
 
-const std::uint8_t kFaceStartAddress = 0xa0;
+const uint8_t kFaceStartAddress = 0xa0;
 const int kMaxBlocksPerFace = 9;
 const int kMaxFaces = 6;
 const int kMaxMode = 3;
@@ -91,10 +91,10 @@ void VideoCubeSettings::step(const System& system) {
   // We need to go through each face to see if the colour blocks match, and
   // count the total numbers of matched faces.
   int completeFaceCount = 0;
-  std::uint8_t blockAddress = kFaceStartAddress;
+  uint8_t blockAddress = kFaceStartAddress;
   for (int c0 = 0; c0 < kMaxFaces; c0++) {
     // Grab the first colour block of the current face.
-    std::uint8_t firstColourBlock = readRam(&system, blockAddress);
+    uint8_t firstColourBlock = readRam(&system, blockAddress);
 
     // Analyse the remaining 8 blocks of the face to see if they match the first
     // colour block.

@@ -31,7 +31,7 @@
 
 namespace ale {
 
-std::int8_t readPieces(const System* system, int offset) {
+int8_t readPieces(const System* system, int offset) {
   int value = readRam(system, offset);
   if (value >= 128) {
     // Return player pieces as negative counters
@@ -76,16 +76,16 @@ void BackgammonSettings::step(const System& system) {
   // inverted for a frame before being valid again, but since the win state
   // is picked up before the inversion occurs we don't need to worry about this.
 
-  std::int8_t num_player_pieces_out = -readPieces(&system, 0x80);
-  std::int8_t num_computer_pieces_out = readPieces(&system, 0x8E);
+  int8_t num_player_pieces_out = -readPieces(&system, 0x80);
+  int8_t num_computer_pieces_out = readPieces(&system, 0x8E);
 
-  std::int8_t num_player_pieces_in = 0;
-  std::int8_t num_computer_pieces_in = 0;
+  int8_t num_player_pieces_in = 0;
+  int8_t num_computer_pieces_in = 0;
 
   // Count all player/computer pieces in order to verify the board state is
   // valid.
   for (int address = 0x81; address <= 0x8d; ++address) {
-    std::int8_t pieces = readPieces(&system, address);
+    int8_t pieces = readPieces(&system, address);
     if (pieces > 0) {
       num_computer_pieces_in += pieces;
     } else if (pieces < 0) {
@@ -93,7 +93,7 @@ void BackgammonSettings::step(const System& system) {
     }
   }
   for (int address = 0x8f; address <= 0x9b; ++address) {
-    std::int8_t pieces = readPieces(&system, address);
+    int8_t pieces = readPieces(&system, address);
     if (pieces > 0) {
       num_computer_pieces_in += pieces;
     } else if (pieces < 0) {
